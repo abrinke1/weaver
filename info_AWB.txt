@@ -46,6 +46,10 @@ python train.py --predict --regression-mode --data-test '/cms/data/store/user/ab
 
 -----------------------------------------------------------------------------------
 
+python train.py --data-train --data-train Sig_wH-70:/cms/data/store/user/chosila/AK8_SUSY_GluGluH_01J_HToAATo4B_Pt*_mH-70_mA-12_wH-70_wA-70_TuneCP5_13TeV_madgraph_pythia8.root QCD:/cms/data/store/user/abrinke1/Trees/HtoAAto4B/ParticleNet/Ntuples/2022_11_14/AK8_QCD_*_HT*to*.root --data-config data/Hto4b_ak8_points_pf_sv_full_wH-70_multiclass_highlevel.yaml --network-config networks/particle_net_pf_sv.py --num-epochs 20 --model-prefix output/multiclass_highlevel_wH-70_E20
+
+-----------------------------------------------------------------------------------
+
 git remote add abrinke1 git@github.com:abrinke1/weaver.git
 git checkout -b AWB_Hto4b_dev
 git add files_to_add
