@@ -119,9 +119,9 @@ observers:
    - fj_genjet_mass
    - fj_genjet_sdmass
    # - fj_gen_H_aa_bbbb_mass_H
-   # - fj_gen_H_aa_bbbb_mass_a1
-   # - fj_gen_H_aa_bbbb_mass_a2
-   - fj_gen_H_aa_bbbb_mass_a
+   # - fj_gen_H_aa_bbbb_mass_a1  ## Some 2022_11_14 NTuples have mass_a1/a2,
+   # - fj_gen_H_aa_bbbb_mass_a2  ## some have mass_a.  train.py will not run
+   # - fj_gen_H_aa_bbbb_mass_a   ## if specified variable is not available
    - fj_gen_H_aa_bbbb_dR_max_b
    - fj_gen_H_aa_bbbb_pt_min_b
    - fj_nbHadrons

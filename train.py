@@ -323,7 +323,7 @@ def onnx(args, model, data_config, model_info):
                       input_names=model_info['input_names'],
                       output_names=model_info['output_names'],
                       dynamic_axes=model_info.get('dynamic_axes', None),
-                      opset_version=13)
+                      opset_version=12)  ## v12 instead of v13 for Run 2 UL NanoAOD processing in CMSSW
     _logger.info('ONNX model saved to %s', args.export_onnx)
 
     preprocessing_json = os.path.join(os.path.dirname(args.export_onnx), 'preprocess.json')
@@ -603,7 +603,7 @@ def save_root(args, output_path, data_config, scores, labels, observers):
     else:
         for idx, label_name in enumerate(data_config.label_value):
             output[label_name] = (labels[data_config.label_names[0]] == idx)
-            output['score_' + label_name] = scores[:, idx]
+            output['prob' + label_name] = scores[:, idx]  ## 'prob' instead of 'score_' to not break CMSSW
     for k, v in labels.items():
         if k == data_config.label_names[0]:
             continue
@@ -814,6 +814,7 @@ def main(args):
             test_loader = get_test_loader()
             # run prediction
             if args.model_prefix.endswith('.onnx'):
+                print('\n*** LOADING AN ONNX MODEL!!! ***\n')
                 _logger.info('Loading model %s for eval' % args.model_prefix)
                 from utils.nn.tools import evaluate_onnx
                 test_metric, scores, labels, observers = evaluate_onnx(args.model_prefix, test_loader)

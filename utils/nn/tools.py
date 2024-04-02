@@ -225,7 +225,8 @@ def evaluate_classification(model, test_loader, dev, epoch, for_training=True, l
 
 def evaluate_onnx(model_path, test_loader, eval_metrics=['roc_auc_score', 'roc_auc_score_matrix', 'confusion_matrix']):
     import onnxruntime
-    sess = onnxruntime.InferenceSession(model_path)
+    ## Need CPUExecutionProvider for Run 2 UL NanoAOD processing in CMSSW
+    sess = onnxruntime.InferenceSession(model_path,providers=['CPUExecutionProvider'])
 
     data_config = test_loader.dataset.config
 
