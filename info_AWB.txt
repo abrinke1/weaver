@@ -70,14 +70,14 @@ python train.py --predict --regression-mode -t '/cms/data/chosila/Ntuples/AK8_SU
 
 ## Testing ONNX in regression mode with Si's files ###
 
-python train.py -c /home/chosila/Projects/weaver/data/H_calc_mass_regr.yaml -n networks/particle_net_pf_sv_mass_regression.py -m /home/chosila/Projects/weaver/output/wide_H_calc_mass_regr_best_epoch_state.pt --export-onnx models/2023_08_30/wide_H_calc_mass_regr_Si_2023_08_30.onnx
+python train.py -c data/Hto4b_ak8_points_pf_sv_mass_regression_Si.yaml -n networks/particle_net_pf_sv_mass_regression.py -m wide_H_calc_mass_regr_best_epoch_state.pt --export-onnx models/2023_08_30/wide_H_calc_mass_regr_Si_2023_08_30.onnx
 
-python train.py --predict --regression-mode -t '/cms/data/chosila/Ntuples/AK8_SUSY_GluGluH_01J_HToAATo4B_Pt350_mH-70_mA-12_wH-70_wA-10_TuneCP5_13TeV_madgraph_pythia8.root' -c /home/chosila/Projects/weaver/data/H_calc_mass_regr.yaml -n networks/particle_net_pf_sv_mass_regression.py -m /home/chosila/Projects/weaver/output/wide_H_calc_mass_regr --predict-output output/predict_wide_H_calc_mass_regr_Si_test.root
-python train.py --predict --regression-mode -t '/cms/data/chosila/Ntuples/AK8_SUSY_GluGluH_01J_HToAATo4B_Pt350_mH-70_mA-12_wH-70_wA-10_TuneCP5_13TeV_madgraph_pythia8.root' -c /home/chosila/Projects/weaver/data/H_calc_mass_regr.yaml -n networks/particle_net_pf_sv_mass_regression.py -m models/2023_08_30/wide_H_calc_mass_regr_Si_2023_08_30.onnx --predict-output output/predict_wide_H_calc_mass_regr_Si_test_onnx.root
+python train.py --predict --regression-mode -t '/cms/data/chosila/Ntuples/AK8_SUSY_GluGluH_01J_HToAATo4B_Pt350_mH-70_mA-12_wH-70_wA-10_TuneCP5_13TeV_madgraph_pythia8.root' -c data/Hto4b_ak8_points_pf_sv_mass_regression_Si.yaml -n networks/particle_net_pf_sv_mass_regression.py -m /home/chosila/Projects/weaver/output/wide_H_calc_mass_regr --predict-output output/predict_wide_H_calc_mass_regr_Si_test.root
+python train.py --predict --regression-mode -t '/cms/data/chosila/Ntuples/AK8_SUSY_GluGluH_01J_HToAATo4B_Pt350_mH-70_mA-12_wH-70_wA-10_TuneCP5_13TeV_madgraph_pythia8.root' -c data/Hto4b_ak8_points_pf_sv_mass_regression_Si.yaml -n networks/particle_net_pf_sv_mass_regression.py -m models/2023_08_30/wide_H_calc_mass_regr_Si_2023_08_30.onnx --predict-output output/predict_wide_H_calc_mass_regr_Si_test_onnx.root
 
 ** In train.py, change opset_version from 13 to 12
-python train.py -c /home/chosila/Projects/weaver/data/H_calc_mass_regr.yaml -n networks/particle_net_pf_sv_mass_regression.py -m /home/chosila/Projects/weaver/output/wide_H_calc_mass_regr_best_epoch_state.pt --export-onnx models/2023_08_30/wide_H_calc_mass_regr_Si_2023_08_30_v12.onnx
-python train.py --predict --regression-mode -t '/cms/data/chosila/Ntuples/AK8_SUSY_GluGluH_01J_HToAATo4B_Pt350_mH-70_mA-12_wH-70_wA-10_TuneCP5_13TeV_madgraph_pythia8.root' -c /home/chosila/Projects/weaver/data/H_calc_mass_regr.yaml -n networks/particle_net_pf_sv_mass_regression.py -m models/2023_08_30/wide_H_calc_mass_regr_Si_2023_08_30_v12.onnx --predict-output output/predict_wide_H_calc_mass_regr_Si_test_onnx_v12.root
+python train.py -c data/Hto4b_ak8_points_pf_sv_mass_regression_Si.yaml -n networks/particle_net_pf_sv_mass_regression.py -m output/wide_H_calc_mass_regr_best_epoch_state.pt --export-onnx models/2023_08_30/wide_H_calc_mass_regr_Si_2023_08_30_v12.onnx
+python train.py --predict --regression-mode -t '/cms/data/chosila/Ntuples/AK8_SUSY_GluGluH_01J_HToAATo4B_Pt350_mH-70_mA-12_wH-70_wA-10_TuneCP5_13TeV_madgraph_pythia8.root' -c data/Hto4b_ak8_points_pf_sv_mass_regression_Si.yaml -n networks/particle_net_pf_sv_mass_regression.py -m models/2023_08_30/wide_H_calc_mass_regr_Si_2023_08_30_v12.onnx --predict-output output/predict_wide_H_calc_mass_regr_Si_test_onnx_v12.root
 
 -----------------------------------------------------------------------------------
 
