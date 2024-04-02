@@ -1,3 +1,4 @@
+## Sort of a README, specific to Kodiak computing system at Baylor University
 
 ssh -X -Y abrinke1@gpu005
 cd /cms/data/abrinke1/CMSSW/HiggsToAA/ParticleNet/
