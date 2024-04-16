@@ -1,5 +1,5 @@
 
-ssh -X -Y abrinke1@gpu005
+ssh -X -Y abrinke1@gpu006
 cd /cms/data/abrinke1/CMSSW/HiggsToAA/ParticleNet/
 
 https://github.com/hqucms/weaver#readme

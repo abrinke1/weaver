@@ -1,9 +1,8 @@
 selection:
-   (fj_mass > 10) & (label_H_aa_bbbb == 1) & ((event_no % 2) == 0)
+   (fj_mass > 1) & (label_H_aa_bbbb == 1) & ((event_no % 2) == 0)
 
 test_time_selection:
    (fj_mass > 1)
-   # (fj_mass > 1) & ( (event_no < 100000) | ((event_no > 175000) & (event_no < 335000)) | ((event_no > 7290000) & (event_no < 7510000)) )
 
 new_variables:
    pfcand_mask: awkward.JaggedArray.ones_like(pfcand_etarel)
@@ -78,7 +77,7 @@ inputs:
 labels:
    type: custom
    value: 
-      target_mass: fj_gen_H_aa_bbbb_mass_a
+      target_mass: fj_gen_H_aa_bbbb_mass_a2
 
 observers:
    - event_no
@@ -101,9 +100,20 @@ observers:
    - fj_genjet_pt
    - fj_genjet_mass
    - fj_genjet_sdmass
+   - fj_gen_H_aa_bbbb_mass_a1
+   - fj_gen_H_aa_bbbb_mass_a2
+   - fj_gen_H_aa_bbbb_mass_bb_mass_a2
+   - fj_gen_H_aa_bbbb_mass_bb_mass_a1
+   - fj_gen_H_aa_bbbb_mass_bbbar_mass_a2
+   - fj_gen_H_aa_bbbb_mass_bbbar_mass_a1
+   - fj_gen_H_aa_bbbb_mass_bb_dR_a2
+   - fj_gen_H_aa_bbbb_mass_bb_dR_a1
+   - fj_gen_H_aa_bbbb_mass_bbbar_dR_a2
+   - fj_gen_H_aa_bbbb_mass_bbbar_dR_a1
    - fj_gen_H_aa_bbbb_dR_max_b
    - fj_gen_H_aa_bbbb_pt_min_b
+   - fj_gen_H_aa_bbbb_mass_H
+   - fj_gen_H_aa_bbbb_mass_H_calc
    - pfParticleNetMassRegressionJetTags_mass
-   - pfParticleNetDiscriminatorsJetTags_HbbvsQCD
-   - pfParticleNetDiscriminatorsJetTags_H4qvsQCD
+   - pfMassDecorrelatedDeepBoostedDiscriminatorsJetTags_ZHbbvsQCD
    - pfMassDecorrelatedParticleNetDiscriminatorsJetTags_XbbvsQCD

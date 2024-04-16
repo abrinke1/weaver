@@ -106,7 +106,7 @@ def _preprocess(table, data_config, options):
     # define new variables
     _build_new_variables(table, data_config.var_funcs)
     # check labels
-    if data_config.label_type == 'simple':
+    if data_config.label_type == 'simple' and options['training']:
         _check_labels(table)
     # build weights
     if options['reweight']:

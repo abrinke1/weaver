@@ -1,5 +1,5 @@
 selection:
-   (fj_sdmass > 10) & (fj_eta > -2.4) & (fj_eta < 2.4) & (fj_pt > 170) & (fj_pt < 7000) & ((event_no % 2) == 0)
+   (fj_sdmass > 10) & (fj_eta > -2.4) & (fj_eta < 2.4) & (fj_pt > 170) & (fj_pt < 7000) & ((label_H_aa_bbbb+label_H_aa_other+sample_isQCD+fj_isISR+fj_isNR) == 1) & ((event_no % 2) == 0)
 
 test_time_selection:
    (fj_sdmass > 10) & (fj_eta > -2.4) & (fj_eta < 2.4) & (fj_pt > 170) & (fj_pt < 7000)
@@ -16,9 +16,24 @@ new_variables:
    Haa01b: (label_H_aa_other==1) & (fj_nbHadrons<=1)
    QCD0b: (sample_isQCD==1) & (fj_nbHadrons==0)
    QCD1b: (sample_isQCD==1) & (fj_nbHadrons==1)
-   QCD2b: (sample_isQCD==1) & (fj_nbHadrons==2)
+   QCD2b: (sample_isQCD==1) & (fj_nbHadrons==2) & (fj_ncHadrons<4)
+   QCD2b2c: (sample_isQCD==1) & (fj_nbHadrons==2) & (fj_ncHadrons>=4)
    QCD3b: (sample_isQCD==1) & (fj_nbHadrons==3)
    QCD4b: (sample_isQCD==1) & (fj_nbHadrons>=4)
+   ISR0b: (fj_isISR==1) & (fj_nbHadrons==0)
+   ISR1b: (fj_isISR==1) & (fj_nbHadrons==1)
+   ISR2b: (fj_isISR==1) & (fj_nbHadrons==2) & (fj_ncHadrons<4)
+   ISR2b2c: (fj_isISR==1) & (fj_nbHadrons==2) & (fj_ncHadrons>=4)
+   ISR3b: (fj_isISR==1) & (fj_nbHadrons==3)
+   ISR4b: (fj_isISR==1) & (fj_nbHadrons>=4)
+   NR0b: (fj_isNR==1) & (label_NR_lep==0) & (fj_nbHadrons==0)
+   NR1b: (fj_isNR==1) & (label_NR_lep==0) & (fj_nbHadrons==1)
+   NR2b: (fj_isNR==1) & (label_NR_lep==0) & (fj_nbHadrons==2) & (fj_ncHadrons<4)
+   NR2b2c: (fj_isNR==1) & (label_NR_lep==0) & (fj_nbHadrons==2) & (fj_ncHadrons>=4)
+   NR3b: (fj_isNR==1) & (label_NR_lep==0) & (fj_nbHadrons==3)
+   NR4b: (fj_isNR==1) & (label_NR_lep==0) & (fj_nbHadrons>=4)
+   NRlep: (label_NR_lep==1)
+   Other: (label_H_aa_bbbb+label_H_aa_other+sample_isQCD+fj_isISR+fj_isNR!=1)
    label_QCD_LHE_300:  (sample_min_LHE_HT== 300)
    label_QCD_LHE_500:  (sample_min_LHE_HT== 500)
    label_QCD_LHE_700:  (sample_min_LHE_HT== 700)
@@ -26,7 +41,7 @@ new_variables:
    label_QCD_LHE_1500: (sample_min_LHE_HT==1500)
    label_QCD_LHE_2000: (sample_min_LHE_HT==2000)
    ## Event weight used in reweight_classes below
-   event_weight_wH70:  (label_H_aa_bbbb*10. + label_H_aa_other*10. + label_QCD_LHE_300*1.0 + label_QCD_LHE_500*1.0 + label_QCD_LHE_700*1.2 + label_QCD_LHE_1000*0.9 + label_QCD_LHE_1500*0.2 + label_QCD_LHE_2000*0.05)
+   event_weight_wH70:  (Other*1.0 + fj_isISR*1.0 + fj_isNR*1.0 + label_H_aa_bbbb*10. + label_H_aa_other*10. + label_QCD_LHE_300*1.0 + label_QCD_LHE_500*1.0 + label_QCD_LHE_700*1.2 + label_QCD_LHE_1000*0.9 + label_QCD_LHE_1500*0.2 + label_QCD_LHE_2000*0.05)
    ## event_weight_mH125: (label_H_aa_bbbb*1.5 + label_H_aa_other*1.5 + label_QCD_LHE_500*0.3 + label_QCD_LHE_700*2.0 + label_QCD_LHE_1000*1.0 + label_QCD_LHE_1500*0.2)
 
 preprocess:
@@ -100,7 +115,9 @@ labels:
    value: [
       ## H_aa_same_mass, H_aa_diff_mass,
       Haa4b, Haa3b, Haa2b, Haa01b,
-      QCD4b, QCD3b, QCD2b, QCD1b, QCD0b
+      QCD4b, QCD3b, QCD2b2c, QCD2b, QCD1b, QCD0b,
+      ISR4b, ISR3b, ISR2b2c, ISR2b, ISR1b, ISR0b,
+      NR4b, NR3b, NR2b2c, NR2b, NR1b, NR0b, NRlep
       ]
 
 observers:
@@ -110,20 +127,67 @@ observers:
    - jet_no
    - npv
    - n_sv
-   - label_H_aa_bbbb
-   - label_H_aa_other
-   - label_QCD_BGen
-   - label_QCD_bEnr
    - sample_isQCD
    - sample_min_LHE_HT
-   - fj_isISR
+   - fj_label
    - fj_isTT
+   - fj_isTop
+   - fj_isW
    - fj_isZ
+   - fj_isH
+   - fj_isISR
+   - fj_isQCD
    - fj_isNR
+   - label_H_aa_bbbb
+   - label_H_aa_other
+   - label_QCD_others
+   - label_QCD_BGen
+   - label_QCD_bEnr
+   - label_QCD_Incl
+   - label_QCD_bb
+   - label_QCD_cc
+   - label_QCD_b
+   - label_QCD_c
    - label_NR_LF
    - label_NR_b
    - label_NR_bb
    - label_NR_lep
+   - label_TT_ISR
+   - label_TT_q
+   - label_TT_b
+   - label_TT_bq
+   - label_TT_qq
+   - label_TT_bqq
+   - label_TT_l
+   - label_TT_bl
+   - label_TT_q_q
+   - label_TT_b_q
+   - label_TT_bq_q
+   - label_TT_qq_q
+   - label_TT_bqq_q
+   - label_TT_l_q
+   - label_TT_bl_q
+   - label_TT_b_b
+   - label_TT_bq_b
+   - label_TT_qq_b
+   - label_TT_bqq_b
+   - label_TT_l_b
+   - label_TT_bl_b
+   - label_TT_bq_bq
+   - label_TT_qq_bq
+   - label_TT_bqq_bq
+   - label_TT_l_bq
+   - label_TT_bl_bq
+   - label_TT_qq_qq
+   - label_TT_bqq_qq
+   - label_TT_l_qq
+   - label_TT_bl_qq
+   - label_TT_bqq_bqq
+   - label_TT_l_bqq
+   - label_TT_bl_bqq
+   - label_TT_l_l
+   - label_TT_bl_l
+   - label_TT_bl_bl
    - fj_gen_pt
    - fj_gen_mass
    - fj_genjet_pt
@@ -175,6 +239,6 @@ weights:
    reweight_vars:
       fj_pt: [0, 10000]
       fj_eta: [-5.0, 5.0]
-   reweight_classes: [ label_H_aa_bbbb, label_H_aa_other, label_QCD_LHE_300, label_QCD_LHE_500, label_QCD_LHE_700, label_QCD_LHE_1000, label_QCD_LHE_1500, label_QCD_LHE_2000 ]
-   class_weights: [10.0, 10.0, 1.0, 1.0, 1.2, 0.9, 0.2, 0.05]
+   reweight_classes: [ Other, fj_isISR, fj_isNR, label_H_aa_bbbb, label_H_aa_other, label_QCD_LHE_300, label_QCD_LHE_500, label_QCD_LHE_700, label_QCD_LHE_1000, label_QCD_LHE_1500, label_QCD_LHE_2000 ]
+   class_weights: [1.0, 1.0, 1.0, 10.0, 10.0, 1.0, 1.0, 1.2, 0.9, 0.2, 0.05]
    ## class_weights: [ 1.5,  1.5, 0.3, 2.0, 1.0, 0.2]
